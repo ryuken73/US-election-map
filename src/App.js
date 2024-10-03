@@ -1,22 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
+import AlberUSAMap from './Components/AlberUSAMap';
+import StateSummary from './Components/StateSummary';
 import './App.css';
 
 function App() {
+  const mapRef = React.useRef();
+  const [activeYear, setActiveYear] = React.useState(2008);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <AlberUSAMap mapRef={mapRef}></AlberUSAMap>
+        <StateSummary
+          activeYear={activeYear}
+          setActiveYear={setActiveYear}
+        ></StateSummary>
       </header>
     </div>
   );
