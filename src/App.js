@@ -4,6 +4,7 @@ import StateSummary from './Components/StateSummary';
 import {
   getAllFeatures,
   getCellColor,
+  getCellColorPredict,
   setCellColor,
   updatePaint,
 } from 'lib/mapUtil'
@@ -17,6 +18,7 @@ function App() {
   const [activeYear, setActiveYear] = React.useState(2008);
   const [activeState, setActiveState] = React.useState(null);
   const [voteData, setVoteData] = React.useState({});
+  const [predictData, setPredictData] = React.useState([]);
 
   // load past vote data and save voteData state variable
   const loadPastVote = React.useCallback((year) => {
@@ -52,6 +54,16 @@ function App() {
     updatePaint(map);
   }, [voteData])
 
+  const setFeatureVotePredict = React.useCallback(() => {
+    const map = mapRef.current;
+    const stateFeatures = getAllFeatures(map, LAYERS);
+    stateFeatures.forEach((stateFeature, i) => {
+      console.log('processing...', stateFeature.properties.state_abbrev, i)
+      const cellColor = getCellColorPredict(stateFeature, predictData)
+      setCellColor(map, stateFeature, cellColor);
+    })
+  }, [predictData])
+
   React.useEffect(() => {
     PAST_YEARS.forEach(year => loadPastVote(year));
   }, [loadPastVote])
@@ -71,6 +83,8 @@ function App() {
           activeVoteData={activeVoteData}
           setActiveYear={setActiveYear}
           setFeatureVoteData={setFeatureVoteData}
+          setFeatureVotePredict={setFeatureVotePredict}
+          setPredictData={setPredictData}
           activeState={activeState}
         ></StateSummary>
       </header>

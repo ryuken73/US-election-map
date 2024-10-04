@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import StateVoteInfo from './StateVoteInfo';
+import csv from 'csvtojson';
+import config from 'config.json'
 
 const Container = styled.div`
   position: absolute;
@@ -31,6 +33,25 @@ const Button = styled.div`
   border: ${props => props.isActive ? '1px dashed white' : '1px solid black' };
 `
 
+const {GOOGLE_SHEET_CSV} = config;
+
+const fetchGoogleSheet = () => {
+  return new Promise((resolve, reject) => {
+    fetch(GOOGLE_SHEET_CSV)
+    .then(data => {
+      return data.text()
+    })
+    .then(results => {
+      console.log(results)
+      csv().fromString(results)
+      .then(data => {
+        console.log(data)
+        resolve(data);
+      })
+    })
+  })
+}
+
 function StateSummary(props) {
   const {
     years=[2008, 2012, 2016, 2020, 2024],
@@ -38,6 +59,8 @@ function StateSummary(props) {
     activeVoteData,
     setActiveYear,
     setFeatureVoteData,
+    setFeatureVotePredict,
+    setPredictData,
     activeState
   } = props;
 
@@ -49,11 +72,19 @@ function StateSummary(props) {
 
   console.log(voteData)
 
-  const handleClick = React.useCallback((event) => {
+  const handleClick = React.useCallback(async (event) => {
     const targetYear = parseInt(event.target.id);
+    if(targetYear === 2024){
+      setActiveYear(targetYear);
+      const predictData = await fetchGoogleSheet();
+      setPredictData(predictData);
+      setActiveYear(targetYear);
+      setFeatureVotePredict();
+      return;
+    }
     setActiveYear(targetYear);
     setFeatureVoteData(targetYear);
-  }, [setActiveYear, setFeatureVoteData])
+  }, [setActiveYear, setFeatureVoteData, setFeatureVotePredict])
 
   return (
     <Container>

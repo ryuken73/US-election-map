@@ -55,7 +55,12 @@ function AlberUSAMap(props) {
         setActiveState(null);
         return;
       }
-      console.log(feature)
+      console.log(activeYear, feature)
+      if(activeYear === 2024){
+        console.log('lll active year is 2024. skip msgbox')
+        return;
+      }
+      console.log('lll show msgbox')
       new mapboxgl.Popup({offset: [0, -15], closeButton: false})
         .setLngLat([lng, lat])
         .setHTML(
@@ -64,7 +69,7 @@ function AlberUSAMap(props) {
         .addTo(map);
       setActiveState(feature.properties.state_fips);
     })
-  }, [mapRef, setActiveState])
+  }, [activeYear, mapRef, setActiveState])
 
   return (
     <div id='map-container' ref={mapContainerRef}></div>
