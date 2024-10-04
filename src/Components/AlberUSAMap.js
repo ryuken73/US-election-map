@@ -39,37 +39,41 @@ function AlberUSAMap(props) {
       mapRef.current.remove();
     }
   }, [mapRef])
+  const handleClick = React.useCallback((event) => {
+    console.log(event);
+    const map = mapRef.current;
+    const {lngLat} = event;
+    const {lat, lng} = lngLat;
+    const feature = getFeature(map, event, ['state-boundaries']);
+    if(feature === null){
+      setActiveState(null);
+      return;
+    }
+    console.log(activeYear, feature)
+    if(activeYear === 2024){
+      console.log('lll active year is 2024. skip msgbox')
+      return;
+    }
+    console.log('lll show msgbox')
+    new mapboxgl.Popup({offset: [0, -15], closeButton: false})
+      .setLngLat([lng, lat])
+      .setHTML(
+        `<h3 style="font-size: 20px; min-width: 200px;text-align: center;color: black;padding 0;">${feature.properties.state_name} [${feature.properties.state_abbrev}]</h3>`
+      )
+      .addTo(map);
+    setActiveState(feature.properties.state_fips);
+  }, [activeYear, mapRef, setActiveState])
 
   // attach event handler
   React.useEffect(() => {
     if(mapRef.current === null){
       return
     }
-    mapRef.current.on('click', (event) => {
-      console.log(event);
-      const map = mapRef.current;
-      const {lngLat} = event;
-      const {lat, lng} = lngLat;
-      const feature = getFeature(map, event, ['state-boundaries']);
-      if(feature === null){
-        setActiveState(null);
-        return;
-      }
-      console.log(activeYear, feature)
-      if(activeYear === 2024){
-        console.log('lll active year is 2024. skip msgbox')
-        return;
-      }
-      console.log('lll show msgbox')
-      new mapboxgl.Popup({offset: [0, -15], closeButton: false})
-        .setLngLat([lng, lat])
-        .setHTML(
-          `<h3 style="font-size: 20px; min-width: 200px;text-align: center;color: black;console.log(feature)">${feature.properties.state_name} [${feature.properties.state_abbrev}]</h3>`
-        )
-        .addTo(map);
-      setActiveState(feature.properties.state_fips);
-    })
-  }, [activeYear, mapRef, setActiveState])
+    mapRef.current.on('click', handleClick);
+    return () => {
+      mapRef.current.off('click', handleClick);
+    }
+  }, [handleClick, mapRef]);
 
   return (
     <div id='map-container' ref={mapContainerRef}></div>
