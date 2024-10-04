@@ -9,10 +9,11 @@ const Container = styled.div`
   margin-bottom: 10px;
 `
 const Text = styled.div`
-0 font-size: 25px;
+  font-size: 25px;
   text-align: left;
 `
 const StateName = styled(Text)`
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
 `
@@ -26,6 +27,8 @@ const Bold = styled.span`
 const ResultBanner = styled(StateName)`
 `
 const WinnerText = styled(TotalVotes)`
+  font-size: 20px;
+  font-family: Consolas, Monaco, Lucida Console, monospace;
 `
 const GraphContainer = styled.div``
 const PartyPercent = styled.div`

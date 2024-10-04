@@ -3,10 +3,12 @@ import mapboxgl from 'mapbox-gl'
 import config from '../config.json';
 import {
   getFeature,
+  getAllFeatures
 } from 'lib/mapUtil';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const {TOKEN, MAPBOX_STYLE, INITIAL_COORD, INITIAL_ZOOM} = config;
+const LAYERS = ['state-boundaries']
 
 function AlberUSAMap(props) {
   const {
