@@ -5,7 +5,7 @@ import { colors } from 'lib/mapUtil';
 const Container = styled.div`
   background: #1e293b;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 10px;
 `
 const Text = styled.div`
@@ -50,7 +50,7 @@ const PercentageValue = styled.div`
 `
 
 function StateVoteInfo(props) {
-  const {voteData={}} = props;
+  const {voteData={}, activeYear} = props;
   const {
     year=2008,
     state,
@@ -66,7 +66,7 @@ function StateVoteInfo(props) {
     <Container>
       <StateName>{state}, {state_po}</StateName>
       <TotalVotes><Bold>전체 투표수:</Bold> {total_votes.toLocaleString()}</TotalVotes>
-      <ResultBanner>{year} 선거결과</ResultBanner>
+      <ResultBanner>{activeYear} 선거결과</ResultBanner>
       <WinnerText><Bold>Winner:</Bold> {winner}</WinnerText>
       <GraphContainer>
         <PartyPercent>

@@ -9,7 +9,7 @@ const Container = styled.div`
   /* background: rgb(15 23 42); */
   background: #0f172a;
   width: 450px;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
 `
 const ButtonContainer = styled.div`
@@ -47,6 +47,8 @@ function StateSummary(props) {
     return voteData.state_fips_str === activeState;
   })
 
+  console.log(voteData)
+
   const handleClick = React.useCallback((event) => {
     const targetYear = parseInt(event.target.id);
     setActiveYear(targetYear);
@@ -55,8 +57,9 @@ function StateSummary(props) {
 
   return (
     <Container>
-      {activeState !== null && (
+      {activeState !== null && voteData !== undefined && (
         <StateVoteInfo
+          activeYear={activeYear}
           voteData={voteData}
         ></StateVoteInfo>
       )}

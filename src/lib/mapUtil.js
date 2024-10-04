@@ -27,7 +27,7 @@ export const getAllFeatures = (map, layers) => {
   })
 }
 
-export const getCellColor = (stateFeature, voteInfo) => {
+export const getCellColor = (stateFeature, voteInfo=[]) => {
   const {state_fips} = stateFeature.properties
   const targetVoteInfo = voteInfo.find(info => {
     return info.state_fips_str === state_fips
