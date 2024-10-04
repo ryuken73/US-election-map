@@ -79,12 +79,12 @@ function StateSummary(props) {
       const predictData = await fetchGoogleSheet();
       setPredictData(predictData);
       setActiveYear(targetYear);
-      setFeatureVotePredict();
+      setFeatureVotePredict(predictData);
       return;
     }
     setActiveYear(targetYear);
     setFeatureVoteData(targetYear);
-  }, [setActiveYear, setFeatureVoteData, setFeatureVotePredict])
+  }, [setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
 
   return (
     <Container>

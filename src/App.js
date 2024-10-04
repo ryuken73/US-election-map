@@ -1,4 +1,5 @@
 import React from 'react';
+import HeadTitle from 'Components/HeadTitle';
 import AlberUSAMap from './Components/AlberUSAMap';
 import StateSummary from './Components/StateSummary';
 import {
@@ -20,6 +21,20 @@ function App() {
   const [voteData, setVoteData] = React.useState({});
   const [predictData, setPredictData] = React.useState([]);
 
+  const {DEM_count, REP_count, REMAIN_count} = predictData.reduce((acct, data) => {
+    const newAcct = {...acct};
+    const {winner, electoral} = data;
+    if(winner === 'DEM'){
+      newAcct.DEM_count = acct.DEM_count + parseInt(electoral);
+    }
+    if(winner === 'REP'){
+      newAcct.REP_count = acct.REP_count + parseInt(electoral);
+    }
+    if(winner === ''){
+      newAcct.REMAIN_count = acct.REMAIN_count + parseInt(electoral);
+    }
+    return newAcct;
+  }, {DEM_count: 0, REP_count: 0, REMAIN_count: 0})
   // load past vote data and save voteData state variable
   const loadPastVote = React.useCallback((year) => {
     fetch(`/${year}.json`)
@@ -54,7 +69,7 @@ function App() {
     updatePaint(map);
   }, [voteData])
 
-  const setFeatureVotePredict = React.useCallback(() => {
+  const setFeatureVotePredict = React.useCallback((predictData) => {
     const map = mapRef.current;
     const stateFeatures = getAllFeatures(map, LAYERS);
     stateFeatures.forEach((stateFeature, i) => {
@@ -62,7 +77,7 @@ function App() {
       const cellColor = getCellColorPredict(stateFeature, predictData)
       setCellColor(map, stateFeature, cellColor);
     })
-  }, [predictData])
+  }, [])
 
   React.useEffect(() => {
     PAST_YEARS.forEach(year => loadPastVote(year));
@@ -71,6 +86,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <HeadTitle 
+          DEM_count={DEM_count} 
+          REMAIN_count={REMAIN_count}
+          REP_count={REP_count}
+        ></HeadTitle>
+
         <AlberUSAMap 
           activeYear={activeYear}
           activeVoteData={activeVoteData}
