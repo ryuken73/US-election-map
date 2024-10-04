@@ -33,13 +33,16 @@ function StateSummary(props) {
   const {
     years=[2008, 2012, 2016, 2020, 2024],
     activeYear=2008,
-    setActiveYear
+    activeVoteData,
+    setActiveYear,
+    setFeatureVoteData
   } = props;
 
   const handleClick = React.useCallback((event) => {
     const targetYear = parseInt(event.target.id);
-    setActiveYear(targetYear)
-  }, [setActiveYear])
+    setActiveYear(targetYear);
+    setFeatureVoteData(targetYear);
+  }, [setActiveYear, setFeatureVoteData])
 
   return (
     <Container>
