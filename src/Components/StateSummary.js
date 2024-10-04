@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import StateVoteInfo from './StateVoteInfo';
 
 const Container = styled.div`
   position: absolute;
   right: 20px;
   bottom: 20px;
-  background: rgb(15 23 42);
+  /* background: rgb(15 23 42); */
+  background: #0f172a;
   width: 450px;
   padding: 10px;
   border-radius: 10px;
@@ -35,8 +37,15 @@ function StateSummary(props) {
     activeYear=2008,
     activeVoteData,
     setActiveYear,
-    setFeatureVoteData
+    setFeatureVoteData,
+    activeState
   } = props;
+
+  console.log('active state:', activeState, activeVoteData)
+
+  const voteData = activeVoteData?.find(voteData => {
+    return voteData.state_fips_str === activeState;
+  })
 
   const handleClick = React.useCallback((event) => {
     const targetYear = parseInt(event.target.id);
@@ -46,6 +55,11 @@ function StateSummary(props) {
 
   return (
     <Container>
+      {activeState !== null && (
+        <StateVoteInfo
+          voteData={voteData}
+        ></StateVoteInfo>
+      )}
       <ButtonContainer>
         {years.map(year => (
           <Button

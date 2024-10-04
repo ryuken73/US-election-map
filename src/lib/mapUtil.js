@@ -1,7 +1,8 @@
-const colors = {
+export const colors = {
   DEM: 'darkblue',
   REP: 'darkred',
   DRAW: 'grey',
+  OTH: 'grey',
   DEFAULT: '#2f488e'
 }
 

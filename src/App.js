@@ -56,14 +56,13 @@ function App() {
     PAST_YEARS.forEach(year => loadPastVote(year));
   }, [loadPastVote])
 
-
-
   return (
     <div className="App">
       <header className="App-header">
         <AlberUSAMap 
           activeYear={activeYear}
           activeVoteData={activeVoteData}
+          setActiveState={setActiveState}
           mapRef={mapRef}
         ></AlberUSAMap>
         <StateSummary
@@ -72,6 +71,7 @@ function App() {
           activeVoteData={activeVoteData}
           setActiveYear={setActiveYear}
           setFeatureVoteData={setFeatureVoteData}
+          activeState={activeState}
         ></StateSummary>
       </header>
     </div>

@@ -13,6 +13,7 @@ function AlberUSAMap(props) {
     mapRef,
     activeYear=2008,
     activeVoteData,
+    setActiveState,
   } = props;
 
   console.log('lll', activeYear, activeVoteData)
@@ -49,16 +50,19 @@ function AlberUSAMap(props) {
       const {lat, lng} = lngLat;
       const feature = getFeature(map, event, ['state-boundaries']);
       if(feature === null){
+        setActiveState(null);
         return;
       }
+      console.log(feature)
       new mapboxgl.Popup({offset: [0, -15], closeButton: false})
         .setLngLat([lng, lat])
         .setHTML(
-          `<h3 style="font-size: 20px; min-width: 200px;text-align: center;">${feature.properties.state_name} [${feature.properties.state_abbrev}]</h3>`
+          `<h3 style="font-size: 20px; min-width: 200px;text-align: center;color: black;console.log(feature)">${feature.properties.state_name} [${feature.properties.state_abbrev}]</h3>`
         )
         .addTo(map);
+      setActiveState(feature.properties.state_fips);
     })
-  }, [mapRef])
+  }, [mapRef, setActiveState])
 
   return (
     <div id='map-container' ref={mapContainerRef}></div>
