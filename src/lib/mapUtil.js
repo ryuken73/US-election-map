@@ -3,7 +3,8 @@ export const colors = {
   REP: 'darkred',
   DRAW: 'grey',
   OTH: 'grey',
-  DEFAULT: '#2f488e'
+  DEFAULT: 'grey',
+  // DEFAULT: '#2f488e'
 }
 
 const source = 'composite';
@@ -48,7 +49,9 @@ export const getCellColorPredict = (stateFeature, voteInfo=[]) => {
     console.error('no feature with fips =', state_fips);
     return colors.DEFAULT
   }
-  return colors[targetVoteInfo['winner']];
+  const cellColor = targetVoteInfo['winner'] === '' ? colors['DEFAULT'] : colors[targetVoteInfo['winner']];
+  console.log('cellColor=',colors.DEFAULT, cellColor, targetVoteInfo['winner'])
+  return cellColor
 }
 
 export const setCellColor = (map, stateFeature, cellColor) => {
