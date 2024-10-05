@@ -69,13 +69,8 @@ function AlberUSAMap(props) {
         } else {
           newWinner = 'REP'
         }
-        setCellColor(map, feature, colors[newWinner]);
-        // popup2024Ref.current = new mapboxgl.Popup({offset: [0, -15], closeButton: false})
-        //   .setLngLat([lng, lat])
-        //   .setHTML(
-        //     `<h3 style="font-size: 20px; min-width: 200px;text-align: center;color: black;">${feature.properties.state_name} [${feature.properties.state_abbrev}]</h3><h1 style="color: black">${electoral}<h1>`
-        //   )
-        //   .addTo(map);
+        const cellColor = newWinner === '' ? colors['DEFAULT'] : colors[newWinner];
+        setCellColor(map, feature, cellColor);
         return [
           ...predictData.slice(0, targetIndex),
           {...predictData[targetIndex], winner: newWinner},
