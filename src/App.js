@@ -107,6 +107,7 @@ function App() {
           activeYear={activeYear}
           activeVoteData={activeVoteData}
           setActiveYear={setActiveYear}
+          setActiveState={setActiveState}
           setFeatureVoteData={setFeatureVoteData}
           setFeatureVotePredict={setFeatureVotePredict}
           setPredictData={setPredictData}

@@ -58,6 +58,7 @@ function StateSummary(props) {
     activeYear=2008,
     activeVoteData,
     setActiveYear,
+    setActiveState,
     setFeatureVoteData,
     setFeatureVotePredict,
     setPredictData,
@@ -76,10 +77,10 @@ function StateSummary(props) {
   const handleClick = React.useCallback(async (event) => {
     const targetYear = parseInt(event.target.id);
     if(targetYear === 2024){
-      setActiveYear(targetYear);
       const predictData = await fetchGoogleSheet();
       setPredictData(predictData);
       setActiveYear(targetYear);
+      setActiveState(null);
       setFeatureVotePredict(predictData);
       console.log('popupRef:', popupRef.current)
       if(popupRef.current !== null) popupRef.current.remove();
@@ -87,7 +88,7 @@ function StateSummary(props) {
     }
     setActiveYear(targetYear);
     setFeatureVoteData(targetYear);
-  }, [popupRef, setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
+  }, [popupRef, setActiveState, setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
 
   return (
     <Container>
