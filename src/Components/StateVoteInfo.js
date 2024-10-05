@@ -47,6 +47,7 @@ const Percentage = styled.div`
   height: 15px;
   width: ${props => (props.value*3) + 'px'};
   margin-right: 20px;
+  transition: width 0.5s;
 `
 const PercentageValue = styled.div`
   font-size: 15px;
