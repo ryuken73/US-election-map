@@ -15,11 +15,12 @@ const PAST_YEARS = [2008, 2012, 2016, 2020];
 const LAYERS = ['state-boundaries']
 
 function App() {
-  const mapRef = React.useRef(null);
   const [activeYear, setActiveYear] = React.useState(2008);
   const [activeState, setActiveState] = React.useState(null);
   const [voteData, setVoteData] = React.useState({});
   const [predictData, setPredictData] = React.useState([]);
+  const mapRef = React.useRef(null);
+  const popupRef = React.useRef(null);
 
   const {DEM_count, REP_count, REMAIN_count} = predictData.reduce((acct, data) => {
     const newAcct = {...acct};
@@ -86,17 +87,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <HeadTitle 
-          DEM_count={DEM_count} 
-          REMAIN_count={REMAIN_count}
-          REP_count={REP_count}
-        ></HeadTitle>
-
+        {activeYear === 2024 && (
+          <HeadTitle 
+            DEM_count={DEM_count} 
+            REMAIN_count={REMAIN_count}
+            REP_count={REP_count}
+          ></HeadTitle>
+        )}
         <AlberUSAMap 
           activeYear={activeYear}
           activeVoteData={activeVoteData}
           setActiveState={setActiveState}
+          setPredictData={setPredictData}
           mapRef={mapRef}
+          popupRef={popupRef}
         ></AlberUSAMap>
         <StateSummary
           years={[...PAST_YEARS, 2024]}
@@ -107,6 +111,7 @@ function App() {
           setFeatureVotePredict={setFeatureVotePredict}
           setPredictData={setPredictData}
           activeState={activeState}
+          popupRef={popupRef}
         ></StateSummary>
       </header>
     </div>

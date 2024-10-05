@@ -61,7 +61,8 @@ function StateSummary(props) {
     setFeatureVoteData,
     setFeatureVotePredict,
     setPredictData,
-    activeState
+    activeState,
+    popupRef,
   } = props;
 
   console.log('active state:', activeState, activeVoteData)
@@ -80,11 +81,13 @@ function StateSummary(props) {
       setPredictData(predictData);
       setActiveYear(targetYear);
       setFeatureVotePredict(predictData);
+      console.log('popupRef:', popupRef.current)
+      if(popupRef.current !== null) popupRef.current.remove();
       return;
     }
     setActiveYear(targetYear);
     setFeatureVoteData(targetYear);
-  }, [setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
+  }, [popupRef, setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
 
   return (
     <Container>
