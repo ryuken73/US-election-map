@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { moveCenter, changeZoom } from 'lib/mapUtil';
+import BackgroundColor from './BackgroundColor';
 
 const Container = styled.div`
   position: absolute;
@@ -45,8 +46,11 @@ function MapControl(props) {
         <div>Zoom</div>
         <button id="zoom-in" onClick={zoomMap}>zoom in</button>
         <button id="zoom-out" onClick={zoomMap}>zoom out</button>
-
       </ZoomControl>
+      <BackgroundColor
+        mapRef={mapRef}
+      >
+      </BackgroundColor>
     </Container>
   )
 }
