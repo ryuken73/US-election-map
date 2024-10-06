@@ -16,21 +16,26 @@ const MoveControl = styled.div`
 const ZoomControl = styled(MoveControl)``
 
 function MapControl(props) {
+  const [position, setPosition] = React.useState({lat:0, lng:0});
   const {mapRef} = props;
+
   const moveMap = React.useCallback((event) => {
     const direction = event.target.id;
     const map = mapRef.current;
-    moveCenter(map, direction);
+    const position = moveCenter(map, direction);
+    setPosition(position);
   }, [mapRef])
+
   const zoomMap = React.useCallback((event) => {
     const direction = event.target.id;
     const map = mapRef.current;
     changeZoom(map, direction);
   }, [mapRef])
+
   return (
     <Container>
       <MoveControl>
-        <div>Move</div>
+        <div>Move[lat:{position.lat.toFixed(2)}, lng:{position.lng.toFixed(2)}]</div>
         <button id="left" onClick={moveMap}>go left</button>
         <button id="right" onClick={moveMap}>go right</button>
         <button id="up" onClick={moveMap}>go up</button>

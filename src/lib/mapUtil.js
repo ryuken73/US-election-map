@@ -92,6 +92,7 @@ export const moveCenter = (map, direction) => {
     }
   }
   map.setCenter(movedPosition)
+  return movedPosition;
 }
 
 export const changeZoom = (map, direction) => {
