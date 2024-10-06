@@ -81,6 +81,7 @@ function App() {
       const cellColor = getCellColorPredict(stateFeature, predictData)
       setCellColor(map, stateFeature, cellColor);
     })
+    updatePaint(map);
   }, [])
 
   React.useEffect(() => {
