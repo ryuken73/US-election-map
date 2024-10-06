@@ -7,7 +7,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 540px;
+  /* width: 540px; */
+  width: 100%;
   height: 20px;
   background: grey;
   transition: width 0.2s;
@@ -15,21 +16,21 @@ const Container = styled.div`
 `
 
 const BarDEM = styled(Container)`
-  width: ${props => props.count+"px"};
+  width: ${props => (props.count/540)*100 +"%"};
   background: ${colors['DEM']};
   border: 2px solid white;
 `
 const BarHalf = styled(BarDEM)`
   position: absolute;
   background: white;
-  width: 2px;
+  width: 1px ;
   z-index: 10;
-  left: 269px;
+  left: 50%;
   border: 1px solid yellow;
-  height: 30px;
+  height: 40px;
 `
 const BarREP = styled(BarDEM)`
-  width: ${props => props.count+"px"};
+  width: ${props => (props.count/540)*100 +"%"};
   background: ${colors['REP']};
   border: 2px solid solid;
 `
