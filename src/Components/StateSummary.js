@@ -63,6 +63,7 @@ function StateSummary(props) {
     setFeatureVotePredict,
     setPredictData,
     activeState,
+    predictData,
     popupRef,
   } = props;
 
@@ -77,18 +78,32 @@ function StateSummary(props) {
   const handleClick = React.useCallback(async (event) => {
     const targetYear = parseInt(event.target.id);
     if(targetYear === 2024){
-      const predictData = await fetchGoogleSheet();
-      setPredictData(predictData);
+      if(predictData.length === 0){
+        const defaultPredictData = await fetchGoogleSheet();
+        setPredictData(defaultPredictData);
+        setFeatureVotePredict(defaultPredictData);
+      } else {
+        setFeatureVotePredict(predictData);
+      }
+      // setPredictData(async predictData => {
+      //   if(predictData.length === 0){
+      //     const defaultPredictData = await fetchGoogleSheet();
+      //     setFeatureVotePredict(defaultPredictData);
+      //     console.log(defaultPredictData)
+      //     return defaultPredictData;
+      //   }
+      //   setFeatureVotePredict(predictData);
+      //   return predictData
+      // });
       setActiveYear(targetYear);
       setActiveState(null);
-      setFeatureVotePredict(predictData);
       console.log('popupRef:', popupRef.current)
       if(popupRef.current !== null) popupRef.current.remove();
       return;
     }
     setActiveYear(targetYear);
     setFeatureVoteData(targetYear);
-  }, [popupRef, setActiveState, setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
+  }, [popupRef, predictData, setActiveState, setActiveYear, setFeatureVoteData, setFeatureVotePredict, setPredictData])
 
   return (
     <Container>

@@ -2,6 +2,7 @@ import React from 'react';
 import HeadTitle from 'Components/HeadTitle';
 import MapControl from 'Components/MapControl';
 import AlberUSAMap from './Components/AlberUSAMap';
+import Fetch2024 from 'Components/Fetch2024';
 import StateSummary from './Components/StateSummary';
 import {
   getAllFeatures,
@@ -23,6 +24,7 @@ function App() {
   const mapRef = React.useRef(null);
   const popupRef = React.useRef(null);
 
+  console.log('predictData:', predictData)
   const {DEM_count, REP_count, REMAIN_count} = predictData.reduce((acct, data) => {
     const newAcct = {...acct};
     const {winner, electoral} = data;
@@ -106,6 +108,12 @@ function App() {
           mapRef={mapRef}
           popupRef={popupRef}
         ></AlberUSAMap>
+        {activeYear === 2024 && (
+          <Fetch2024
+            setPredictData={setPredictData}
+            setFeatureVotePredict={setFeatureVotePredict}
+          ></Fetch2024>
+        )}
         <StateSummary
           years={[...PAST_YEARS, 2024]}
           activeYear={activeYear}
@@ -116,6 +124,7 @@ function App() {
           setFeatureVotePredict={setFeatureVotePredict}
           setPredictData={setPredictData}
           activeState={activeState}
+          predictData={predictData}
           popupRef={popupRef}
         ></StateSummary>
       </header>
