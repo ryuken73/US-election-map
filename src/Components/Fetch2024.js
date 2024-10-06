@@ -6,7 +6,7 @@ import config from 'config.json';
 const Container = styled.div`
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 50px;
   z-index: 10;
 `
 const StyledButton = styled.div`

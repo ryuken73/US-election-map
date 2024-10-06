@@ -1,6 +1,7 @@
 import React from 'react';
 import HeadTitle from 'Components/HeadTitle';
 import MapControl from 'Components/MapControl';
+import ShowControl from 'Components/ShowControl';
 import AlberUSAMap from './Components/AlberUSAMap';
 import Fetch2024 from 'Components/Fetch2024';
 import StateSummary from './Components/StateSummary';
@@ -21,6 +22,7 @@ function App() {
   const [activeState, setActiveState] = React.useState(null);
   const [voteData, setVoteData] = React.useState({});
   const [predictData, setPredictData] = React.useState([]);
+  const [showControl, setShowControl] = React.useState(false);
   const mapRef = React.useRef(null);
   const popupRef = React.useRef(null);
 
@@ -97,9 +99,11 @@ function App() {
           REMAIN_count={REMAIN_count}
           REP_count={REP_count}
         ></HeadTitle>
-        <MapControl
-          mapRef={mapRef}
-        ></MapControl>
+        {showControl && (
+          <MapControl
+            mapRef={mapRef}
+          ></MapControl>
+        )}
         <AlberUSAMap 
           activeYear={activeYear}
           activeVoteData={activeVoteData}
@@ -108,6 +112,11 @@ function App() {
           mapRef={mapRef}
           popupRef={popupRef}
         ></AlberUSAMap>
+        <ShowControl 
+          showControl={showControl}
+          setShowControl={setShowControl}
+        >
+        </ShowControl>
         {activeYear === 2024 && (
           <Fetch2024
             setPredictData={setPredictData}
