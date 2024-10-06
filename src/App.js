@@ -91,13 +91,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {activeYear === 2024 && (
-          <HeadTitle 
-            DEM_count={DEM_count} 
-            REMAIN_count={REMAIN_count}
-            REP_count={REP_count}
-          ></HeadTitle>
-        )}
+        <HeadTitle 
+          activeYear={activeYear}
+          DEM_count={DEM_count} 
+          REMAIN_count={REMAIN_count}
+          REP_count={REP_count}
+        ></HeadTitle>
         <MapControl
           mapRef={mapRef}
         ></MapControl>

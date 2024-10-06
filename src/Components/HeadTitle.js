@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   
 `
 const Title = styled.div`
@@ -32,19 +33,21 @@ const BarContainer = styled.div`
 `
 
 function HeadTitle(props) {
-  const {DEM_count, REP_count, REMAIN_count} = props;
+  const {activeYear, DEM_count, REP_count, REMAIN_count} = props;
   
   return (
     <Container>
-      <Title>2024 미국 대선 예측</Title>
-      <BarContainer>
-        <div>DEM:{DEM_count}</div>
-        <CountBar
-          DEM_count={DEM_count}
-          REP_count={REP_count}
-        ></CountBar>
-        <div>REP:{REP_count}</div>
-      </BarContainer>
+      <Title>{activeYear} 미국 대선</Title>
+      {activeYear === 2024 &&(
+        <BarContainer>
+          <div>DEM:{DEM_count}</div>
+          <CountBar
+            DEM_count={DEM_count}
+            REP_count={REP_count}
+          ></CountBar>
+          <div>REP:{REP_count}</div>
+        </BarContainer>
+      )}
     </Container>
   )
 }
