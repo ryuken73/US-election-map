@@ -17,7 +17,7 @@ const PAST_YEARS = [2008, 2012, 2016, 2020];
 const LAYERS = ['state-boundaries']
 
 function App() {
-  const [activeYear, setActiveYear] = React.useState(2008);
+  const [activeYear, setActiveYear] = React.useState(null);
   const [activeState, setActiveState] = React.useState(null);
   const [voteData, setVoteData] = React.useState({});
   const [predictData, setPredictData] = React.useState([]);
