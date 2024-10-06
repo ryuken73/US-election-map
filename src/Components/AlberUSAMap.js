@@ -5,7 +5,10 @@ import {
   getFeature,
   colors,
   setCellColor,
-  getAllFeatures
+  getAllFeatures,
+  moveCenter,
+  changeZoom,
+  setBackgroundColor
 } from 'lib/mapUtil';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -19,10 +22,12 @@ function AlberUSAMap(props) {
     activeYear=2008,
     activeVoteData,
     setActiveState,
-    setPredictData
+    setPredictData,
+    savedOptions,
   } = props;
 
-  console.log('lll', activeYear, activeVoteData)
+  console.log('lll', activeYear, activeVoteData, savedOptions)
+  const {position, zoom, backgroundColor} = savedOptions;
   const mapContainerRef = React.useRef(null);
 
   // initialize map
@@ -94,18 +99,22 @@ function AlberUSAMap(props) {
     if(mapRef.current === null){
       return
     }
-    mapRef.current.on('click', handleClick);
-    mapRef.current.on('load', () => {
-      mapRef.current.doubleClickZoom.disable();
-      mapRef.current.touchZoomRotate.disable();
+    const map = mapRef.current;
+    map.on('click', handleClick);
+    map.on('load', () => {
+      map.doubleClickZoom.disable();
+      map.touchZoomRotate.disable();
       // disable move by drag
-      mapRef.current.dragPan.disable();
-      mapRef.current.touchPitch.disable();
+      map.dragPan.disable();
+      map.touchPitch.disable();
+      moveCenter(map, position);
+      changeZoom(map, zoom)
+      setBackgroundColor(map, backgroundColor)
     })
     return () => {
       mapRef.current.off('click', handleClick);
     }
-  }, [handleClick, mapRef]);
+  }, [backgroundColor, handleClick, mapRef, position, zoom]);
 
   return (
     <div id='map-container' ref={mapContainerRef}></div>

@@ -100,4 +100,5 @@ export const changeZoom = (map, direction) => {
   const target = direction === 'zoom-in' ? 0.05 : -0.05;
   const newZoomLevel = zoomLevel + target;
   map.setZoom(newZoomLevel);
+  return newZoomLevel;
 }

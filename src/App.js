@@ -5,6 +5,7 @@ import ShowControl from 'Components/ShowControl';
 import AlberUSAMap from './Components/AlberUSAMap';
 import Fetch2024 from 'Components/Fetch2024';
 import StateSummary from './Components/StateSummary';
+import useLocalStorage from 'hooks/useLocalStorage';
 import {
   getAllFeatures,
   getCellColor,
@@ -16,6 +17,7 @@ import './App.css';
 
 const PAST_YEARS = [2008, 2012, 2016, 2020];
 const LAYERS = ['state-boundaries']
+const LOCAL_STORAGE_KEY = 'SBS-US-ELECTION-2024'
 
 function App() {
   const [activeYear, setActiveYear] = React.useState(null);
@@ -25,6 +27,14 @@ function App() {
   const [showControl, setShowControl] = React.useState(false);
   const mapRef = React.useRef(null);
   const popupRef = React.useRef(null);
+  const [savedOptions, saveOptions] = useLocalStorage(LOCAL_STORAGE_KEY, {});
+
+  const saveMapOption = React.useCallback((key, value) => {
+    saveOptions({
+      ...savedOptions,
+      [key]: value
+    })
+  }, [saveOptions, savedOptions])
 
   console.log('predictData:', predictData)
   const {DEM_count, REP_count, REMAIN_count} = predictData.reduce((acct, data) => {
@@ -41,6 +51,7 @@ function App() {
     }
     return newAcct;
   }, {DEM_count: 0, REP_count: 0, REMAIN_count: 0})
+
   // load past vote data and save voteData state variable
   const loadPastVote = React.useCallback((year) => {
     fetch(`/${year}.json`)
@@ -102,6 +113,8 @@ function App() {
         {showControl && (
           <MapControl
             mapRef={mapRef}
+            savedOptions={savedOptions}
+            saveMapOption={saveMapOption}
           ></MapControl>
         )}
         <AlberUSAMap 
@@ -109,6 +122,7 @@ function App() {
           activeVoteData={activeVoteData}
           setActiveState={setActiveState}
           setPredictData={setPredictData}
+          savedOptions={savedOptions}
           mapRef={mapRef}
           popupRef={popupRef}
         ></AlberUSAMap>

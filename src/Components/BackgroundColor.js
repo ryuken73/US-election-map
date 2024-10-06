@@ -8,13 +8,14 @@ const Container = styled.div`
 `
 
 function BackgroundColor(props) {
-  const {mapRef} = props;
+  const {mapRef, saveMapOption} = props;
   const [color, setColor] = React.useState('#413F9B');
   const handleChange = React.useCallback((color) => {
     const map = mapRef.current;
     setColor(color);
     setBackgroundColor(map, color.hex);
-  }, [mapRef])
+    saveMapOption('backgroundColor', color.hex);
+  }, [mapRef, saveMapOption])
   return (
     <Container>
       <div>background color</div>

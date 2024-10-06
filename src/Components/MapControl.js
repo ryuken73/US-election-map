@@ -18,20 +18,24 @@ const ZoomControl = styled(MoveControl)``
 
 function MapControl(props) {
   const [position, setPosition] = React.useState({lat:0, lng:0});
-  const {mapRef} = props;
+  const {mapRef, savedOptions, saveMapOption} = props;
+
+  console.log('savedOptions:',savedOptions)
 
   const moveMap = React.useCallback((event) => {
     const direction = event.target.id;
     const map = mapRef.current;
     const position = moveCenter(map, direction);
     setPosition(position);
-  }, [mapRef])
+    saveMapOption('position', position);
+  }, [mapRef, saveMapOption])
 
   const zoomMap = React.useCallback((event) => {
     const direction = event.target.id;
     const map = mapRef.current;
-    changeZoom(map, direction);
-  }, [mapRef])
+    const zoom = changeZoom(map, direction);
+    saveMapOption('zoom', zoom);
+  }, [mapRef, saveMapOption])
 
   return (
     <Container>
@@ -49,6 +53,7 @@ function MapControl(props) {
       </ZoomControl>
       <BackgroundColor
         mapRef={mapRef}
+        saveMapOption={saveMapOption}
       >
       </BackgroundColor>
     </Container>
