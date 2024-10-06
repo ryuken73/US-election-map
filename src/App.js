@@ -1,5 +1,6 @@
 import React from 'react';
 import HeadTitle from 'Components/HeadTitle';
+import MapControl from 'Components/MapControl';
 import AlberUSAMap from './Components/AlberUSAMap';
 import StateSummary from './Components/StateSummary';
 import {
@@ -94,6 +95,9 @@ function App() {
             REP_count={REP_count}
           ></HeadTitle>
         )}
+        <MapControl
+          mapRef={mapRef}
+        ></MapControl>
         <AlberUSAMap 
           activeYear={activeYear}
           activeVoteData={activeVoteData}

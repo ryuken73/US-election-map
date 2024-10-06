@@ -75,3 +75,28 @@ export const setBackgroundColor = (map, color) => {
     color
   )
 }
+
+export const moveCenter = (map, direction) => {
+  const position = map.getCenter()
+  const offset = direction === 'left' || direction === 'down' ? 0.2 : -0.2;
+  let movedPosition;
+  if(direction === 'left' || direction === 'right'){
+    movedPosition = {
+      ...position,
+      lng: position.lng + offset
+    }
+  } else {
+    movedPosition = {
+      ...position,
+      lat: position.lat + offset
+    }
+  }
+  map.setCenter(movedPosition)
+}
+
+export const changeZoom = (map, direction) => {
+  const zoomLevel = map.getZoom()
+  const target = direction === 'zoom-in' ? 0.05 : -0.05;
+  const newZoomLevel = zoomLevel + target;
+  map.setZoom(newZoomLevel);
+}
