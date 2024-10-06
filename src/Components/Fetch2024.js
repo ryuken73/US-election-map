@@ -7,6 +7,15 @@ const Container = styled.div`
   position: absolute;
   right: 10px;
   top: 10px;
+  z-index: 10;
+`
+const StyledButton = styled.div`
+  cursor: pointer;
+  color: white;
+  background: maroon;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
 `
 
 const {GOOGLE_SHEET_CSV} = config;
@@ -41,7 +50,7 @@ function Fetch2024(props) {
 
   return (
     <Container>
-      <button onClick={fetchData}>Fetch2024</button>
+      <StyledButton onClick={fetchData}>Reset</StyledButton>
     </Container>
   )
 }
