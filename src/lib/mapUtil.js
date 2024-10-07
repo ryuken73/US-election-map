@@ -68,7 +68,7 @@ export const updatePaint = (map) => {
   )
 }
 
-export const setBackgroundColor = (map, color) => {
+export const setBackgroundColor = (map, color='#181919') => {
   map.setPaintProperty(
     'background',
     'background-color',
