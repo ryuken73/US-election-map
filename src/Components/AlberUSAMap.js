@@ -112,17 +112,7 @@ function AlberUSAMap(props) {
       map.touchPitch.disable();
       moveCenter(map, position);
       changeZoom(map, zoom)
-      setBackgroundColor(map, backgroundColor)
-
-      // const stateFeatures = getAllFeatures(map, LAYERS);
-      // console.log(stateFeatures);
-      // stateFeatures.forEach((stateFeature, i) => {
-      //   console.log('processing...', stateFeature.properties.state_abbrev, i)
-      //   setLineColor(map, stateFeature, 'yellow');
-      // })
-      // setTimeout(() => {
-      //   updatePaintLinecolor(map)
-      // }, 1000)
+      // setBackgroundColor(map, backgroundColor)
     })
     return () => {
       mapRef.current.off('click', handleClick);
