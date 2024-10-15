@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 100%;
   height: 20px;
   background: grey;
-  transition: width 0.2s;
+  transition: width 1s;
   box-sizing: border-box;
 `
 

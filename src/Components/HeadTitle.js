@@ -1,6 +1,7 @@
 import React from 'react';
 import CountBar from './CountBar';
 import styled from 'styled-components';
+import FlipNumbers from 'react-flip-numbers';
 
 const Container = styled.div`
   position: absolute;
@@ -20,6 +21,13 @@ const TitleContainer = styled.div`
   justify-content: space-between;
   align-items: baseline;
   width: 100%;
+`
+const PartyContainer = styled(TitleContainer)`
+  width: auto;
+  align-items: center;
+`
+const Party = styled.div`
+  margin-right: 5px;
 `
 const Title = styled.div`
   font-size: 40px;
@@ -45,11 +53,35 @@ function HeadTitle(props) {
     <Container>
       <TitleContainer>
         {activeYear === 2024 && (
-          <div>DEM:{DEM_count}</div>
+          <PartyContainer>
+            <Party>DEM:</Party>
+            <FlipNumbers 
+              height={40}
+              width={25}
+              color="white"
+              duration={1.5}
+              background="transparent"
+              perspective={400}
+              play 
+              numbers={DEM_count.toString()}
+            ></FlipNumbers>
+          </PartyContainer>
         )}
         <Title>{activeYear} 미국 대선</Title>
         {activeYear === 2024 && (
-          <div>REP:{REP_count}</div>
+          <PartyContainer>
+            <Party>REP:</Party>
+            <FlipNumbers 
+              height={40}
+              width={25}
+              color="white"
+              duration={1.5}
+              background="transparent"
+              perspective={400}
+              play 
+              numbers={REP_count.toString()}
+            ></FlipNumbers>
+          </PartyContainer>
         )}
       </TitleContainer>
       {activeYear === 2024 &&(
