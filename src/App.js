@@ -11,12 +11,15 @@ import {
   getCellColor,
   getCellColorPredict,
   setCellColor,
+  setLineColor,
   updatePaint,
+  updatePaintLinecolor
 } from 'lib/mapUtil'
 import './App.css';
 
 const PAST_YEARS = [2008, 2012, 2016, 2020];
-const LAYERS = ['state-boundaries']
+const LAYERS = ['state-boundaries'];
+const LAYER_LINE = ['state-boundaries-line'];
 const LOCAL_STORAGE_KEY = 'SBS-US-ELECTION-2024'
 
 function App() {
@@ -83,6 +86,17 @@ function App() {
       const cellColor = getCellColor(stateFeature, targetVoteData)
       setCellColor(map, stateFeature, cellColor);
     })
+    // const stateFeaturesLine = getAllFeatures(map, LAYER_LINE);
+    // stateFeaturesLine.forEach((stateFeature, i) => {
+    //   console.log('processing...', stateFeaturesLine, stateFeature.properties.state_abbrev, i)
+    //   setLineColor(map, stateFeature, 'white');
+    // })
+    // stateFeaturesLine.forEach((stateFeature, i) => {
+    //   if(['WI', 'MI', 'PA', 'NC', 'GA', 'NV', 'AZ'].includes(stateFeature.properties.state_abbrev)){
+    //     setLineColor(map, stateFeature, 'yellow');
+    //   }
+    // })
+    // updatePaintLinecolor(map)
     updatePaint(map);
   }, [voteData])
 

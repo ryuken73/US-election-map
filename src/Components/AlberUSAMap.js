@@ -5,10 +5,13 @@ import {
   getFeature,
   colors,
   setCellColor,
+  setLineColor,
   getAllFeatures,
   moveCenter,
   changeZoom,
-  setBackgroundColor
+  setBackgroundColor,
+  updatePaint,
+  updatePaintLinecolor
 } from 'lib/mapUtil';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -110,6 +113,16 @@ function AlberUSAMap(props) {
       moveCenter(map, position);
       changeZoom(map, zoom)
       setBackgroundColor(map, backgroundColor)
+
+      // const stateFeatures = getAllFeatures(map, LAYERS);
+      // console.log(stateFeatures);
+      // stateFeatures.forEach((stateFeature, i) => {
+      //   console.log('processing...', stateFeature.properties.state_abbrev, i)
+      //   setLineColor(map, stateFeature, 'yellow');
+      // })
+      // setTimeout(() => {
+      //   updatePaintLinecolor(map)
+      // }, 1000)
     })
     return () => {
       mapRef.current.off('click', handleClick);
