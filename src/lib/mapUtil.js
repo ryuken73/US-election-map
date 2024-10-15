@@ -60,11 +60,24 @@ export const setCellColor = (map, stateFeature, cellColor) => {
   map.setFeatureState({id, source, sourceLayer}, {cellColor});
 }
 
+export const setLineColor = (map, stateFeature, lineColor) => {
+  const {id} = stateFeature;
+  console.log(stateFeature.properties.state_fips, stateFeature.properties.state_abbrev, lineColor)
+  map.setFeatureState({id, source, sourceLayer}, {lineColor});
+}
+
 export const updatePaint = (map) => {
   map.setPaintProperty(
     'state-boundaries',
     'fill-color',
     ['feature-state', 'cellColor']
+  )
+}
+export const updatePaintLinecolor = (map) => {
+  map.setPaintProperty(
+    'state-boundaries-line',
+    'line-color',
+    ['feature-state', 'lineColor']
   )
 }
 

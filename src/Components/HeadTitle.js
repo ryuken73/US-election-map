@@ -29,7 +29,7 @@ const BarContainer = styled.div`
   align-items: center;
   color: white;
   z-index: 10;
-  min-width: 40%;
+  min-width: 90%;
 `
 
 function HeadTitle(props) {
