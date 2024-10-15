@@ -5,7 +5,7 @@ import BackgroundColor from './BackgroundColor';
 
 const Container = styled.div`
   position: absolute;
-  top: 10%;
+  top: 20%;
   right: 5%;
   z-index: 1;
   color: white;
@@ -51,11 +51,11 @@ function MapControl(props) {
         <button id="zoom-in" onClick={zoomMap}>zoom in</button>
         <button id="zoom-out" onClick={zoomMap}>zoom out</button>
       </ZoomControl>
-      <BackgroundColor
+      {/* <BackgroundColor
         mapRef={mapRef}
         saveMapOption={saveMapOption}
       >
-      </BackgroundColor>
+      </BackgroundColor> */}
     </Container>
   )
 }
